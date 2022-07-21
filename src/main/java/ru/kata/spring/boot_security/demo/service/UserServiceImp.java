@@ -71,8 +71,10 @@ public class UserServiceImp implements UserService{
 	@Transactional
 	public void update(int id, User user) {
 		User temp = em.find(User.class, id);
-		temp.setName(user.getName());
-		temp.setWallet(user.getWallet());
+		temp.setFirstName(user.getFirstName());
+		temp.setLastName(user.getLastName());
+		temp.setAge(user.getAge());
+		temp.setEmail(user.getEmail());
 		temp.setRoles(user.getRoles());
 		temp.setPassword(user.getPassword());
 		em.merge(temp);
@@ -87,11 +89,11 @@ public class UserServiceImp implements UserService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepos.findByName(username);
+		User user = userRepos.findByFirstName(username);
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format("User %s not found", username));
 		}
-		return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(),
+		return new org.springframework.security.core.userdetails.User(user.getFirstName(), user.getPassword(),
 				user.getAuthorities());
 	}
 

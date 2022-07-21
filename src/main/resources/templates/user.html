@@ -14,7 +14,7 @@
 		<div class="container-fluid">
 			 <div class="collapse navbar-collapse show" id="navbarDark">
 			 	<ul class="navbar-nav me-auto mb-2 mb-xl-0">
-					<span class="font-weight-bold mr-1" th:text="${user.getName()}"></span>
+					<span class="font-weight-bold mr-1" th:text="${user.getEmail()}"></span>
         			<span class="mr-1">with roles:</span>
         			<span th:text="${user.getRoleNames()}"></span>
         		</ul>
@@ -30,7 +30,7 @@
     		<div class="p-0 col-2">
       			<div class="nav flex-column nav-pills pt-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         			<a class="nav-link" href="/admin/users/" sec:authorize="(hasRole('ROLE_ADMIN'))"aria-controls="v-pills-home" aria-selected="false">Admin</a>
-        			<a class="nav-link active" th:text="${user.getName()}" sec:authorize="(hasAnyRole('ROLE_USER','ROLE_ADMIN'))"role="tab"aria-controls="v-pills-profile" aria-selected="true">user</a>
+        			<a class="nav-link active" th:text="${user.getFirstName()}" sec:authorize="(hasAnyRole('ROLE_USER','ROLE_ADMIN'))"role="tab"aria-controls="v-pills-profile" aria-selected="true">user</a>
       			</div>
    			</div>
 	
@@ -52,8 +52,10 @@
                     						<th>ROLES</th>
                   						</tr>
                   						<td th:text="${user.getId()}"></td>
-                  						<td th:text="${user.getName()}"></td>
-                  						<td th:text="${user.getWallet()}"></td>
+                  						<td th:text="${user.getFirstName()}"></td>
+                  						<td th:text="${user.getLastName()}"></td>
+                  						<td th:text="${user.getAge()}"></td>
+                  						<td th:text="${user.getEmail()}"></td>
                   						<td th:text="${user.getRoleNames()}"></td>
                 					</table>
           						</div>

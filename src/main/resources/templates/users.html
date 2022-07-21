@@ -15,7 +15,7 @@
 		<div class="container-fluid">
 			 <div class="collapse navbar-collapse show" id="navbarDark">
 			 	<ul class="navbar-nav me-auto mb-2 mb-xl-0">
-					<span class="font-weight-bold mr-1">Admin</span>
+					<span class="font-weight-bold mr-1">admin@gmail.com</span>
         			<span class="mr-1">with roles:</span>
         			<span>ROLE_ADMIN</span>
         		</ul>
@@ -33,7 +33,7 @@
       			<div class="nav flex-column nav-pills pt-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         			<a class="nav-link active" href="/admin/users/" sec:authorize="(hasRole('ROLE_ADMIN'))"aria-controls="v-pills-home" aria-selected="true">Admin</a>
       				<tr th:each="user : ${users}">
-      					<td><a class="nav-link"  th:if="${user.isNotAdmin()}"  th:text="${user.getName()}" th:href="@{/admin/users/{id}(id=${user.getId()})}"   sec:authorize="(hasRole('ROLE_ADMIN'))"role="tab"aria-controls="v-pills-profile" aria-selected="false"></a></td>
+      					<td><a class="nav-link"  th:if="${user.isNotAdmin()}"  th:text="${user.getFirstName()}" th:href="@{/admin/users/{id}(id=${user.getId()})}"   sec:authorize="(hasRole('ROLE_ADMIN'))"role="tab"aria-controls="v-pills-profile" aria-selected="false"></a></td>
       				</tr>
       			</div>
    			</div>
@@ -72,21 +72,24 @@
                 					<table class="table table-hover">
                   						<tr>
                     						<th>ID</th>
-                    						<th>Name</th>
-                    						<th>Available Sum</th>
+                    						<th>FirstName</th>
+                    						<th>LastName</th>
+                    						<th>Age</th>
+                    						<th>Email</th>
                     						<th>Role</th>
                     						<th>Edit</th>
                     						<th>Delete</th>
                   						</tr>
                   						<tr th:each="user, state : ${users}">
                   							<td th:text="${user.getId()}"></td>
-                  							<td th:text="${user.getName()}"></td>
-                  							<td th:text="${user.getWallet()}"></td>
-                  							<td th:text="${user.getRoleNames()}"></td>
-                  							<td>
+	                  						<td th:text="${user.getFirstName()}"></td>
+	                  						<td th:text="${user.getLastName()}"></td>
+	                  						<td th:text="${user.getAge()}"></td>
+	                  						<td th:text="${user.getEmail()}"></td>
+	                  						<td th:text="${user.getRoleNames()}"></td>
                   								
 											<!-- EDIT -->		
-													
+											<td>		
 											<a id="modal-927967" href="#modal-container-927967" role="button" class="btn btn-info" data-toggle="modal" data-target="#editModal"
                                                     th:data-target="${'#edituser'+user.getId()}">Edit</a>
 											<div class="modal fade" id="modal-container-927967" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:id="${'edituser'+user.getId()}">
@@ -108,14 +111,18 @@
 																<label for="name3"><b>Id</b></label>
 								                                <input th:name="name" th:type="text" th:value="${user.getId()}" class="form-control" id="name3" disabled/>
 																
-																<label for="name3"><b>Name</b></label>
-								                                <input th:name="name" th:type="text" th:value="${user.getName()}" class="form-control" id="name3" required/>
+																<label for="name3"><b>FirstName</b></label>
+								                                <input th:name="firstName" th:type="text" th:value="${user.getFirstName()}" class="form-control" id="name3" required/>
 								
-								
-								                                <label for="sum"><b>Sum</b></label>
-								                                <input th:name="wallet" th:value="${user.getWallet()}" th:type="number" class="form-control" id="sum"
+																<label for="name4"><b>LastName</b></label>
+								                                <input th:name="lastName" th:type="text" th:value="${user.getLastName()}" class="form-control" id="name4" required/>
+																
+								                                <label for="sum"><b>Age</b></label>
+								                                <input th:name="age" th:value="${user.getAge()}" th:type="number" class="form-control" id="age"
 							                                       required/>
 							
+																<label for="email2"><b>Email</b></label>
+								                                <input th:name="email" th:type="text" th:value="${user.getEmail()}" class="form-control" id="email2" required/>
 
 								                                <label for="password3"><b>Password</b></label>
 								                                <input th:name="password" th:type="password" class="form-control" id="password3"
@@ -169,12 +176,20 @@
 									                                <input th:name="name" th:type="text" th:value="${user.getId()}" class="form-control" id="name3" disabled/>
 																</div>
 																<div class="form-group">
-																	<label class="col-form-label" for="name3"><b>Name</b></label>
-									                                <input th:name="name" th:type="text" th:value="${user.getName()}" class="form-control" id="name3" disabled/>
+																	<label class="col-form-label" for="name3"><b>FirstName</b></label>
+									                                <input th:name="firstName" th:type="text" th:value="${user.getFirstName()}" class="form-control" id="name3" disabled/>
 																</div>
 																<div class="form-group">
-									                                <label class="col-form-label" for="sum"><b>Sum</b></label>
-									                                <input th:name="wallet" th:value="${user.getWallet()}" th:type="number" class="form-control" id="sum"disabled/>
+																	<label class="col-form-label" for="name4"><b>LastName</b></label>
+									                                <input th:name="lastName" th:type="text" th:value="${user.getLastName()}" class="form-control" id="name4" disabled/>
+																</div>
+																<div class="form-group">
+																	<label class="col-form-label" for="email5"><b>Email</b></label>
+									                                <input th:name="email" th:type="text" th:value="${user.getEmail()}" class="form-control" id="email5" disabled/>
+																</div>
+																<div class="form-group">
+									                                <label class="col-form-label" for="age"><b>Age</b></label>
+									                                <input th:name="age" th:value="${user.getAge()}" th:type="number" class="form-control" id="age"disabled/>
 																</div>
 																<div class="form-group">
 									                                <label class="col-form-label" for="password3"><b>Password</b></label>
@@ -226,13 +241,20 @@
           							 <form align="center" class="offset-md-4 col-md-3 mt-4 mb-4" th:align="center"
                                   th:action="@{/admin/new}" th:object="${usero}" method="POST">
 
-                                <label for="name3"><b>Name</b></label>
-                                <input th:field="*{name}" th:type="text" class="form-control" id="name3"
+                                <label for="name3"><b>FirstName</b></label>
+                                <input th:field="*{firstName}" th:type="text" class="form-control" id="name3"
+                                       required/>
+                                       
+                                <label for="name4"><b>LastName</b></label>
+                                <input th:field="*{lastName}" th:type="text" class="form-control" id="name4"
                                        required/>
 
+ 								<label for="email5"><b>Email</b></label>
+                                <input th:field="*{email}" th:type="text" class="form-control" id="email5"
+                                       required/>
 
-                                <label for="sum"><b>Sum</b></label>
-                                <input th:field="*{wallet}" th:type="number" class="form-control" id="sum"
+                                <label for="age"><b>Age</b></label>
+                                <input th:field="*{age}" th:type="number" class="form-control" id="age"
                                        required/>
 
 
